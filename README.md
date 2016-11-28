@@ -1,11 +1,18 @@
-# Team Testing Challenge
+
+, # Team Testing Challenge
 
 This folder contains code for a validating sign-up form, created as part of the Team Testing Challenge.
 
 The below questions should be answered regarding your submission!
 
 ##### Which team members were responsible for which features? #####
-> Answer goes here!
+Ethan: Submit,starter Repo
+
+Ryan: Reset, starter Repo
+
+Rachel: Email, Birthday
+
+Sybil: Name,Password
 
 
 _Note: If there are any issues with group collaboration, let me know now **before** the final project!_
