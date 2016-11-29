@@ -298,7 +298,6 @@ class PasswordConfirmationInput extends React.Component {
       <div className={inputStyle}>
         <label htmlFor="passwordConf">Confirm Password</label>
         <input type="password" id="passwordConf" name="passwordConf" className="form-control"
-          value={this.props.value}
           onChange={(e) => this.handleChange(e)}
           />
         {errors.mismatched &&
