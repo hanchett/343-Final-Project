@@ -42,11 +42,17 @@ class SignUpForm extends React.Component {
     console.log('Submitted!');
     this.props.submitCallback();
   }
+  
 
   render() {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.isValid && this.state.password.valid);
+    console.log(this.state.email.valid);
 
+    // console.log(this.state.name.valid);
+    console.log(this.state.dob.valid);
+    console.log(this.state.dob);
+    
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -68,7 +74,7 @@ class SignUpForm extends React.Component {
           value={this.state.password.value}
           updateParent={this.updateState} />
 
-        <PasswordConfirmationInput id="conf" value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState} />
+        <PasswordConfirmationInput id="pasCon" value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState} />
 
         {/* Submit Buttons */}
         <div className="form-group">
