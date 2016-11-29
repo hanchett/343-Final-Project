@@ -21,11 +21,10 @@ describe('Checks on Submit button', () => {
   it('should make the submit button active', () => {
     const wrapper = mount(<SignUpForm />);
     wrapper.find('#email').simulate('change', { target: { value: 'a@gmail.com' } })
-    wrapper.find('BirthdayInput').simulate('change', { target: { value: '11/14/95' } })
+    wrapper.find('#dob').simulate('change', { target: { value: '11/14/95' } })
     wrapper.find('#name').simulate('change', { target: { value: 'Ethan' } })
     wrapper.find('#password').simulate('change', { target: { value: '12345678' } })
-    wrapper.find('PasswordConfirmationInput').simulate('change', { target: { value: '123456' } })
-
+    wrapper.find('#pasCon').simulate('change', { target: { value: '123456' } })
     expect(wrapper.find("#submitButton").props().disabled).toEqual(false);
   });
 });
