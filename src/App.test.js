@@ -12,7 +12,7 @@ it('renders without crashing', () => {
 });
 
 })
-
+//test the submit button
 describe('Checks on Submit button', () => {
 
   it('should render the submit button', () => {
