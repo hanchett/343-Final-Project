@@ -30,26 +30,34 @@ class SignUpForm extends React.Component {
       name: { value: '', valid: false },
       dob: { value: '', valid: false },
       password: { value: '', valid: false },
-      passwordConf: { value: '', valid: false}
+      passwordConf: { value: '', valid: false }
     };
     this.setState(emptyState);
   }
 
   //callback for the submit button
+
   handleSubmit(event) {
     event.preventDefault();
     console.log('Submitted!');
-    this.props.submitCallback(this.state);
+    this.props.submitCallback();
   }
 
   render() {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.isValid && this.state.password.valid);
-
+console.log("email")
+     console.log(this.state.email);
+     console.log("name")
+      console.log(this.state.name);
+      console.log("dob")
+       console.log(this.state.dob);
+       console.log("password")
+        console.log(this.state.password);
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
-        <EmailInput value={this.state.email.value} updateParent={this.updateState} />
+        <EmailInput id="email" value={this.state.email.value} updateParent={this.updateState} />
 
         <RequiredInput
           id="name" field="name" type="text"
@@ -58,7 +66,7 @@ class SignUpForm extends React.Component {
           value={this.state.name.value}
           updateParent={this.updateState} />
 
-        <BirthdayInput value={this.state.dob.value} updateParent={this.updateState} />
+        <BirthdayInput id="birthday" value={this.state.dob.value} updateParent={this.updateState} />
 
         <RequiredInput
           id="password" field="password" type="password"
@@ -67,12 +75,13 @@ class SignUpForm extends React.Component {
           value={this.state.password.value}
           updateParent={this.updateState} />
 
-        <PasswordConfirmationInput value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState} />
+        <PasswordConfirmationInput id="conf" value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState} />
 
         {/* Submit Buttons */}
         <div className="form-group">
           <button id="resetButton" type="reset" className="btn btn-default" onClick={(e) => this.handleReset(e)}>Reset</button> {' ' /*space*/}
-          <button id="submitButton" type="submit" className="btn btn-primary" disabled={buttonEnabled}>Sign Me Up!</button>
+          <button id="submitButton" type="submit" className="btn btn-primary" disabled={!buttonEnabled} onClick={(e) => this.handleSubmit(e)}>Sign Me Up!</button>
+
         </div>
 
       </form>
