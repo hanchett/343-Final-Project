@@ -46,14 +46,6 @@ class SignUpForm extends React.Component {
   render() {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.isValid && this.state.password.valid);
-console.log("email")
-     console.log(this.state.email);
-     console.log("name")
-      console.log(this.state.name);
-      console.log("dob")
-       console.log(this.state.dob);
-       console.log("password")
-        console.log(this.state.password);
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -94,6 +86,11 @@ console.log("email")
  * A component representing a controlled input for an email address
  */
 class EmailInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   validate(currentValue) {
     if (currentValue === '') { //check presence
       return { missing: true, isValid: false }
@@ -121,7 +118,7 @@ class EmailInput extends React.Component {
       }
     };
 
-    this.props.updateParent(stateUpdate) //update parent state
+    this.props.updateParent(stateUpdate); //update parent state
   }
 
   render() {
