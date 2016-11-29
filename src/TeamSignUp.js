@@ -30,7 +30,7 @@ class SignUpForm extends React.Component {
       name: { value: '', valid: false },
       dob: { value: '', valid: false },
       password: { value: '', valid: false },
-      passwordConf: { value: '', valid: false }
+      passwordConf: { value: '', valid: false}
     };
     this.setState(emptyState);
   }
