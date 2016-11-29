@@ -46,14 +46,7 @@ class SignUpForm extends React.Component {
   render() {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.isValid && this.state.password.valid);
-console.log("email")
-     console.log(this.state.email);
-     console.log("name")
-      console.log(this.state.name);
-      console.log("dob")
-       console.log(this.state.dob);
-       console.log("password")
-        console.log(this.state.password);
+
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -66,7 +59,7 @@ console.log("email")
           value={this.state.name.value}
           updateParent={this.updateState} />
 
-        <BirthdayInput id="birthday" value={this.state.dob.value} updateParent={this.updateState} />
+        <BirthdayInput id="dob" value={this.state.dob.value} updateParent={this.updateState} />
 
         <RequiredInput
           id="password" field="password" type="password"
