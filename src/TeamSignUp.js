@@ -47,12 +47,7 @@ class SignUpForm extends React.Component {
   render() {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.isValid && this.state.password.valid);
-    console.log(this.state.email.valid);
 
-    // console.log(this.state.name.valid);
-    console.log(this.state.dob.valid);
-    console.log(this.state.dob);
-    
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -93,6 +88,11 @@ class SignUpForm extends React.Component {
  * A component representing a controlled input for an email address
  */
 class EmailInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   validate(currentValue) {
     if (currentValue === '') { //check presence
       return { missing: true, isValid: false }
@@ -120,7 +120,7 @@ class EmailInput extends React.Component {
       }
     };
 
-    this.props.updateParent(stateUpdate) //update parent state
+    this.props.updateParent(stateUpdate); //update parent state
   }
 
   render() {
@@ -138,7 +138,7 @@ class EmailInput extends React.Component {
         {errors.missing &&
           <p className="help-block error-missing">we need to know your email address</p>
         }
-        {errors.invalid &&
+        {errors.invalidEmail &&
           <p className="help-block error-invalid">this is not a valid email address</p>
         }
       </div>
@@ -213,7 +213,7 @@ class BirthdayInput extends React.Component {
     var d = new Date(); //today
     d.setYear(d.getFullYear() - 13); //subtract 13 from the year
     var minTimestamp = d.getTime();
-    if (timestamp < minTimestamp) {
+    if (timestamp > minTimestamp) {
       return { notOldEnough: true, isValid: false }
     }
 
@@ -243,7 +243,7 @@ class BirthdayInput extends React.Component {
     return (
       <div className={inputStyle}>
         <label htmlFor="dob">Birthdate</label>
-        <input type="text" id="dob" name="dob" className="form-control" placeholder="your birthdate"
+        <input type="text" id="dob" name="dob" className="form-control" placeholder="MM/DD/YYYY"
           value={this.props.value}
           onChange={(e) => this.handleChange(e)}
           />
