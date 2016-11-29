@@ -58,8 +58,7 @@ class SignUpForm extends React.Component {
           value={this.state.name.value}
           updateParent={this.updateState} />
 
-        <BirthdayInput id="birthday" value={this.state.dob.value} updateParent={this.updateState} />
-
+        <BirthdayInput id="ryan" value={this.state.dob.value} updateParent={this.updateState} />
         <RequiredInput
           id="password" field="password" type="password"
           label="Password" placeholder=""
