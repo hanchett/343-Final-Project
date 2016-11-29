@@ -57,7 +57,7 @@ describe('<BirthdayInput> component', () => {
 
   it('should say invalid date', () => {
     const wrapper = shallow(<BirthdayInput value={'what??'} />);
-    expect(wrapper.find('p').text()).toEqual("that is not a valid date");
+    expect(wrapper.find('p').text()).toEqual("that isn\'t a valid date");
     // input.simulate('change', { target: { value: '123/23/2019' } });
   });
 
