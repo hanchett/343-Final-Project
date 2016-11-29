@@ -15,7 +15,7 @@ _Note: If there are any issues with group collaboration, let me know now **befor
 
 
 ##### Did you receive help from any other sources (classmates, etc)? If so, please list who (be specific!). #####
-> Answer goes here!
+> Just the resources in the spec, some stackoverflow searching(but no methods taken from them), eachother and slack 
 
 
 ##### Approximately how many hours did it take you to complete this assignment? #####
