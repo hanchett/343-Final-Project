@@ -59,7 +59,7 @@ describe('<BirthdayInput> component', () => {
     expect(wrapper.find('p').text()).toEqual("that isn't a valid date");
   });
 
-  it('should say not old enough', () => {
+  it('should say not old enough ', () => {
     input.simulate('change', { target: { value: '05/23/2005' } });
     expect(wrapper.find('p').text()).toEqual("sorry, you must be at least 13 to sign up");
   });
