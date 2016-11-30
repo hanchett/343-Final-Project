@@ -30,17 +30,27 @@ describe('Checks on Submit button', () => {
   });
 });
 
+describe('<RequiredInput> component', () => {
+  it("should show an error when field blank", () => {
+    const wrapper = shallow(<RequiredInput value={''} />);
+    expect(wrapper.find('p').text()).toEqual("we need to know your name");
+  });
+
+  it("should show no error", () => {
+    const wrapper = shallow(<RequiredInput value={'Rachel'} />);
+    expect(wrapper.find('p').length).toEqual(0);
+  });
+});
+
 describe('<EmailInput> component', () => {
   it('should say need email', () => {
-    const wrapper = shallow(<EmailInput value={' '} />);
+    const wrapper = shallow(<EmailInput value={''} />);
     expect(wrapper.find('p').text()).toEqual("we need to know your email address");
-    // input.simulate('change', { target: { value: '' } });
   });
 
   it('should say invalid email', () => {
     const wrapper = shallow(<EmailInput value={'myemail'} />);
     expect(wrapper.find('p').text()).toEqual("this is not a valid email address");
-    // input.simulate('change', { target: { value: "myemail" } });
   });
 
   it('should not show an error message', () => {
@@ -51,7 +61,7 @@ describe('<EmailInput> component', () => {
 
 describe('<BirthdayInput> component', () => {
   it('should say need birthday', () => {
-    const wrapper = shallow(<EmailInput value={' '} />);
+    const wrapper = shallow(<EmailInput value={''} />);
     expect(wrapper.find('p').text()).toEqual("we need to know your birthdate");
     // input.simulate('change', { target: { value: '' } });
   });
