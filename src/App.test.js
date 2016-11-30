@@ -41,16 +41,17 @@ describe('Checks on Submit button', () => {
 
 describe('<RequiredInput> component', () => {
   it("should show an error when field blank", () => {
-    const wrapper = shallow(<RequiredInput value={''} />);
+    const wrapper = shallow(<RequiredInput value={''} errorMessage="we need to know your name"/>);
     expect(wrapper.find('p').text()).toEqual("we need to know your name");
   });
 
   it("should show no error", () => {
     const wrapper = shallow(<RequiredInput value={'Rachel'} />);
+    console.log(wrapper.find('p').length);
     expect(wrapper.find('p').length).toEqual(0);
   });
 });
-
+ 
 //to test if the error message doesn't display when two passwords are the same
 describe('<PasswordConfirmationInput> component', () => {
   it('no mismatch message when password matches comfirm password', () => {

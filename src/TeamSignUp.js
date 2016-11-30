@@ -49,7 +49,6 @@ export class SignUpForm extends React.Component {
   render() {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.valid && this.state.password.valid && this.state.passwordConf.valid);
-    console.log(this.state.email.valid, this.state.name.valid, this.state.dob.valid, this.state.password.valid, this.state.passwordConf.valid);
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -157,8 +156,7 @@ class RequiredInput extends React.Component {
     if (currentValue === '') { //check presence
       return { missing: true, isValid: false };
     }
-
-    return { noMissing: true, isValid: true }; //no errors
+    return { missin: false, isValid: true }; //no errors
   }
 
   handleChange(event) {
@@ -185,9 +183,6 @@ class RequiredInput extends React.Component {
           value={this.props.value}
           onChange={(e) => this.handleChange(e)}
           />
-        {errors.noMissing &&
-          <p className="help-block noMissing" id="noMissing">{this.props.errorMessage}</p> }
-
         {errors.missing &&
           <p className="help-block error-missing">{this.props.errorMessage}</p>
         }
@@ -276,7 +271,6 @@ class PasswordConfirmationInput extends React.Component {
 
   validate(currentValue) {
     if (currentValue !== this.props.password) { //check both entries
-      console.log('pass', this.props.password, 'conf', currentValue);
       return { mismatched: true, isValid: false };
     }
     return { noMismatch: true, isValid: true }; //no errors
@@ -286,7 +280,6 @@ class PasswordConfirmationInput extends React.Component {
     //check validity (to inform parent)
     var isValid = this.validate(event.target.value).isValid;
     //what to assign to parent's state
-    console.log('val', event.target.value);
     var stateUpdate = {
       'passwordConf': {
         value: event.target.value,
