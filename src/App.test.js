@@ -44,6 +44,8 @@ describe('<RequiredInput> component', () => {
   it("should show no error", () => {
     const wrapper = shallow(<RequiredInput value={'Rachel'} />);
     expect(wrapper.find('p').length).toEqual(0);
+  });
+});
 
 //to test if the error message doesn't display when two passwords are the same
 describe('<PasswordConfirmationInput> component', () => {
