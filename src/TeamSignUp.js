@@ -49,7 +49,7 @@ export class SignUpForm extends React.Component {
   render() {
     //if all fields are valid, button should be enabled
     var buttonEnabled = (this.state.email.valid && this.state.name.valid && this.state.dob.valid && this.state.password.valid && this.state.passwordConf.valid);
-    console.log('email: ', this.state.email.valid, "name: ", this.state.name.valid, 'dob: ', this.state.dob.valid, 'pass: ', this.state.password.valid, 'passconf:', this.state.passwordConf.valid);
+    console.log(this.state.email.valid, this.state.name.valid, this.state.dob.valid, this.state.password.valid, this.state.passwordConf.valid);
     return (
       <form name="signupForm" onSubmit={(e) => this.handleSubmit(e)}>
 
@@ -70,7 +70,7 @@ export class SignUpForm extends React.Component {
           errorMessage="your password can't be blank"
           value={this.state.password.value}
           updateParent={this.updateState} />
-        <PasswordConfirmationInput value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState} />
+        <PasswordConfirmationInput id="pasCon" value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState} />
 
         {/* Submit Buttons */}
         <div className="form-group">
@@ -276,18 +276,19 @@ class PasswordConfirmationInput extends React.Component {
 
   validate(currentValue) {
     if (currentValue !== this.props.password) { //check both entries
+      console.log('pass', this.props.password, 'conf', currentValue);
       return { mismatched: true, isValid: false };
     }
     return { noMismatch: true, isValid: true }; //no errors
   }
 
   handleChange(event) {
-    console.log('doing a change');
     //check validity (to inform parent)
     var isValid = this.validate(event.target.value).isValid;
     //what to assign to parent's state
+    console.log('val', event.target.value);
     var stateUpdate = {
-      'PasswordConf': {
+      'passwordConf': {
         value: event.target.value,
         valid: isValid
       }
@@ -297,7 +298,6 @@ class PasswordConfirmationInput extends React.Component {
 
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
-    console.log('prop val:', this.props.value)
     var inputStyle = 'form-group';
     if (!errors.isValid) inputStyle += ' invalid';
 
@@ -306,6 +306,7 @@ class PasswordConfirmationInput extends React.Component {
         <label htmlFor="passwordConf">Confirm Password</label>
         <input type="password" id="passwordConf" name="passwordConf" className="form-control"
           onChange={(e) => this.handleChange(e)}
+          value={this.props.value}
           placeholder=""
           />
         {errors.noMismatch &&

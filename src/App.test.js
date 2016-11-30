@@ -26,11 +26,15 @@ describe('Checks on Submit button', () => {
     wrapper.find('#dob').simulate('change', { target: { value: '11/14/95' } })
     wrapper.find('#name').simulate('change', { target: { value: 'Ethan' } })
     wrapper.find('#password').simulate('change', { target: { value: '12345678' } })
-    var test = wrapper.find('PasswordConfirmationInput').simulate('change', {target: {value:'12345678' }})  //.simulate('change', { target: { value: '12345678' } })
-    //console.log('debugging:', test)
-   wrapper.root.component.setChildProps({value: '12345'});
-
+    wrapper.find('PasswordConfirmationInput').simulate('change', {target: {value:'12345678' }})  
+    wrapper.setState({passwordConf: {value: '12345678', valid: true}})
     expect(wrapper.find("#submitButton").props().disabled).toEqual(false);
+  });
+
+  it('should make the submit button inactive', () => {
+    const wrapper = mount(<SignUpForm />);
+    wrapper.find('#email').simulate('change', { target: { value: 'a@gmail.com' } })
+    expect(wrapper.find("#submitButton").props().disabled).toEqual(true);
   });
 });
 

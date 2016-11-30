@@ -13,3 +13,8 @@ body {
 label {
   display: block;
 }
+
+.invalid {
+   color:red;
+   fill: red;
+}
