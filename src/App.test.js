@@ -38,16 +38,19 @@ describe('Checks on Submit button', () => {
   });
 });
 
-//to test if the error message of missing doesn't display when user types in their information
+
 describe('<RequiredInput> component', () => {
-  it('no errors.missing message when field is not blank', () => {
-      const wrapper = shallow(<RequiredInput />);
-      const noMissing = wrapper.find('#noMissing');
-      const input = wrapper.find('input');
-      wrapper.find('input').simulate('change', {target:{value:'sybil'}});
-      expect(noMissing).toEqual(true);
+  it("should show an error when field blank", () => {
+    const wrapper = shallow(<RequiredInput value={''} />);
+    expect(wrapper.find('p').text()).toEqual("we need to know your name");
+  });
+
+  it("should show no error", () => {
+    const wrapper = shallow(<RequiredInput value={'Rachel'} />);
+    expect(wrapper.find('p').length).toEqual(0);
   });
 });
+
 //to test if the error message doesn't display when two passwords are the same
 describe('<PasswordConfirmationInput> component', () => {
   it('no mismatch message when password matches comfirm password', () => {
