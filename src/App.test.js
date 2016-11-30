@@ -24,8 +24,10 @@ describe('Checks on Submit button', () => {
     wrapper.find('#dob').simulate('change', { target: { value: '11/14/95' } })
     wrapper.find('#name').simulate('change', { target: { value: 'Ethan' } })
     wrapper.find('#password').simulate('change', { target: { value: '12345678' } })
-    wrapper.find('#pasCon').simulate('change', { target: { value: '12345678' } })
-    console.log('hi');
+    var test = wrapper.find('PasswordConfirmationInput').simulate('change', {target: {value:'12345678' }})  //.simulate('change', { target: { value: '12345678' } })
+    //console.log('debugging:', test)
+   wrapper.root.component.setChildProps({value: '12345'});
+
     expect(wrapper.find("#submitButton").props().disabled).toEqual(false);
   });
 });
@@ -34,13 +36,11 @@ describe('<EmailInput> component', () => {
   it('should say need email', () => {
     const wrapper = shallow(<EmailInput value={''} />);
     expect(wrapper.find('p').text()).toEqual("we need to know your email address");
-    // input.simulate('change', { target: { value: '' } });
   });
 
   it('should say invalid email', () => {
     const wrapper = shallow(<EmailInput value={'myemail'} />);
     expect(wrapper.find('p').text()).toEqual("this is not a valid email address");
-    // input.simulate('change', { target: { value: "myemail" } });
   });
 
   it('should not show an error message', () => {
@@ -53,19 +53,16 @@ describe('<BirthdayInput> component', () => {
   it('should say need birthday', () => {
     const wrapper = shallow(<BirthdayInput value={''} />);
     expect(wrapper.find('p').text()).toEqual("we need to know your birthdate");
-    // input.simulate('change', { target: { value: '' } });
   });
 
   it('should say invalid date', () => {
     const wrapper = shallow(<BirthdayInput value={'what??'} />);
     expect(wrapper.find('p').text()).toEqual("that isn\'t a valid date");
-    // input.simulate('change', { target: { value: '123/23/2019' } });
   });
 
   it('should say not old enough', () => {
     const wrapper = shallow(<BirthdayInput value={'05/23/2005'} />);
     expect(wrapper.find('p').text()).toEqual("sorry, you must be at least 13 to sign up");
-    // input.simulate('change', { target: { value: '05/23/2005' } });
   });
 
   it('should not show an error message', () => {
