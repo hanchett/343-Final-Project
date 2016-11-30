@@ -37,6 +37,8 @@ class SignUpForm extends React.Component {
 
   //callback for the submit button
   handleSubmit(event) {
+
+
     event.preventDefault();
     console.log('Submitted!');
     this.props.submitCallback(this.state);
@@ -67,7 +69,8 @@ class SignUpForm extends React.Component {
           value={this.state.password.value}
           updateParent={this.updateState} />
 
-        <PasswordConfirmationInput value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState} />
+        <PasswordConfirmationInput          
+          value={this.state.passwordConf.value} password={this.state.password.value} updateParent={this.updateState}/>
 
         {/* Submit Buttons */}
         <div className="form-group">
@@ -113,6 +116,7 @@ class EmailInput extends React.Component {
     };
 
     this.props.updateParent(stateUpdate) //update parent state
+   
   }
 
   render() {
@@ -145,10 +149,10 @@ class EmailInput extends React.Component {
 class RequiredInput extends React.Component {
   validate(currentValue) {
     if (currentValue === '') { //check presence
-      return { required: true, isValid: false };
+      return { missing: true, isValid: false };
     }
 
-    return { isValid: true }; //no errors
+    return { noMissing:true, isValid: true }; //no errors
   }
 
   handleChange(event) {
@@ -161,7 +165,6 @@ class RequiredInput extends React.Component {
       value: event.target.value,
       valid: isValid
     }
-
     this.props.updateParent(stateUpdate) //update parent state
   }
 
@@ -177,7 +180,10 @@ class RequiredInput extends React.Component {
           value={this.props.value}
           onChange={(e) => this.handleChange(e)}
           />
-        {errors &&
+        {errors.noMissing && 
+        <p className="help-block noMissing" id=‘noMissing’ </p> }
+        }
+        {errors.missing &&
           <p className="help-block error-missing">{this.props.errorMessage}</p>
         }
       </div>
@@ -259,11 +265,10 @@ class BirthdayInput extends React.Component {
  */
 class PasswordConfirmationInput extends React.Component {
   validate(currentValue) {
-    if (currentValue === '' || this.props.password === '') { //check both entries
+    if (currentValue !== this.props.password) { //check both entries
       return { mismatched: true, isValid: false };
     }
-
-    return { isValid: true }; //no errors
+    return {noMismatch:true, isValid: true }; //no errors
   }
 
   handleChange(event) {
@@ -290,9 +295,11 @@ class PasswordConfirmationInput extends React.Component {
       <div className={inputStyle}>
         <label htmlFor="passwordConf">Confirm Password</label>
         <input type="password" id="passwordConf" name="passwordConf" className="form-control"
-          value={this.props.value}
           onChange={(e) => this.handleChange(e)}
           />
+        {errors.noMismatch && 
+          <p className="help-block noMismatch" id='noMismatch'></p>
+        }  
         {errors.mismatched &&
           <p className="help-block error-mismatched">passwords don't match</p>
         }
