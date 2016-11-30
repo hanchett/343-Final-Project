@@ -33,6 +33,7 @@ export class SignUpForm extends React.Component {
       passwordConf: { value: '', valid: false }
     };
     this.setState(emptyState);
+    this.props.submitCallback(false);
   }
 
   //callback for the submit button
@@ -42,7 +43,7 @@ export class SignUpForm extends React.Component {
 
     event.preventDefault();
     console.log('Submitted!');
-    this.props.submitCallback();
+    this.props.submitCallback(true);
   }
 
 

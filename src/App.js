@@ -7,8 +7,8 @@ class App extends Component {
     this.state = { 'formSuccess': false };
     this.formSub = this.formSub.bind(this);
   }
-  formSub() {
-    this.setState({ formSuccess: true });
+  formSub(value) {
+    this.setState({ formSuccess: value });
   }
   render() {
     var show = <div></div>
