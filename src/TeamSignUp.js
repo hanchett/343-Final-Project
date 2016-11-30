@@ -127,7 +127,12 @@ class EmailInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if (!errors.isValid) inputStyle += ' invalid'; //add styling rule
+    if (!errors.isValid) {
+      inputStyle += ' has-warning';
+    }
+    else {
+      inputStyle += ' has-success';
+    }
 
     return (
       <div className={inputStyle}>
@@ -174,7 +179,12 @@ class RequiredInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if (!errors.isValid) inputStyle += ' invalid';
+    if (!errors.isValid) {
+      inputStyle += ' has-warning';
+    }
+    else {
+      inputStyle += ' has-success';
+    }
 
     return (
       <div className={inputStyle}>
@@ -203,7 +213,7 @@ class BirthdayInput extends React.Component {
 
     //check date validity
     var timestamp = Date.parse(currentValue); //use built-in Date type
-    if (isNaN(timestamp)) { //it not a valid stamp
+    if (isNaN(timestamp) || currentValue.length !== 10) { //it not a valid stamp
       return { notDate: true, isValid: false };
     }
 
@@ -236,7 +246,12 @@ class BirthdayInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if (!errors.isValid) inputStyle += ' invalid';
+    if (!errors.isValid) {
+      inputStyle += ' has-warning';
+    }
+    else {
+      inputStyle += ' has-success';
+    }
 
     return (
       <div className={inputStyle}>
@@ -270,10 +285,10 @@ class PasswordConfirmationInput extends React.Component {
   }
 
   validate(currentValue) {
-    if (currentValue !== this.props.password) { //check both entries
+    if (currentValue !== this.props.password || currentValue === '') { //check both entries
       return { mismatched: true, isValid: false };
     }
-    return { noMismatch: true, isValid: true }; //no errors
+    return { mismatched: false, isValid: true }; //no errors
   }
 
   handleChange(event) {
@@ -292,7 +307,12 @@ class PasswordConfirmationInput extends React.Component {
   render() {
     var errors = this.validate(this.props.value); //need to validate again, but at least isolated
     var inputStyle = 'form-group';
-    if (!errors.isValid) inputStyle += ' invalid';
+    if (!errors.isValid) {
+      inputStyle += ' has-warning';
+    }
+    else {
+      inputStyle += ' has-success';
+    }
 
     return (
       <div className={inputStyle}>
@@ -302,11 +322,8 @@ class PasswordConfirmationInput extends React.Component {
           value={this.props.value}
           placeholder=""
           />
-        {errors.noMismatch &&
-          <p className="help-block noMismatch" id='noMismatch'></p>
-        }
         {errors.mismatched &&
-          <p className="help-block error-mismatched">passwords don't match</p>
+          <p className="help-block error-mismatched" id="passMismatch">Passwords don't match</p>
         }
       </div>
     );

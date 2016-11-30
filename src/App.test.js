@@ -23,11 +23,11 @@ describe('Checks on Submit button', () => {
   it('should make the submit button active', () => {
     const wrapper = mount(<SignUpForm />);
     wrapper.find('#email').simulate('change', { target: { value: 'a@gmail.com' } })
-    wrapper.find('#dob').simulate('change', { target: { value: '11/14/95' } })
+    wrapper.find('#dob').simulate('change', { target: { value: '11/14/1995' } })
     wrapper.find('#name').simulate('change', { target: { value: 'Ethan' } })
     wrapper.find('#password').simulate('change', { target: { value: '12345678' } })
-    wrapper.find('PasswordConfirmationInput').simulate('change', {target: {value:'12345678' }})  
-    wrapper.setState({passwordConf: {value: '12345678', valid: true}})
+    wrapper.find('PasswordConfirmationInput').simulate('change', { target: { value: '12345678' } })
+    wrapper.setState({ passwordConf: { value: '12345678', valid: true } })
     expect(wrapper.find("#submitButton").props().disabled).toEqual(false);
   });
 
@@ -41,28 +41,36 @@ describe('Checks on Submit button', () => {
 
 describe('<RequiredInput> component', () => {
   it("should show an error when field blank", () => {
-    const wrapper = shallow(<RequiredInput value={''} errorMessage="we need to know your name"/>);
+    const wrapper = shallow(<RequiredInput value={''} errorMessage="we need to know your name" />);
     expect(wrapper.find('p').text()).toEqual("we need to know your name");
   });
 
   it("should show no error", () => {
     const wrapper = shallow(<RequiredInput value={'Rachel'} />);
-    console.log(wrapper.find('p').length);
     expect(wrapper.find('p').length).toEqual(0);
   });
 });
- 
+
 //to test if the error message doesn't display when two passwords are the same
 describe('<PasswordConfirmationInput> component', () => {
-  it('no mismatch message when password matches comfirm password', () => {
-      const wrapper = shallow(<PasswordConfirmationInput />);
-      const input = wrapper.find('input');
-      const noMismatch = wrapper.find('#noMismatch');
-      wrapper.find('currentValue').simulate('change', {target:{value:'123456'}});
-      wrapper.find('wrapper.props.password').simulate('change', {target:{value:'123456'}});
-      expect(noMismatch).toEqual(true);
+  it('If passwords match, no mismatch text', () => {
+    const wrapper = mount(<SignUpForm />);
+    wrapper.find('PasswordConfirmationInput').simulate('change', { target: { value: '12345678' } });
+    wrapper.setState({ passwordConf: { value: '12345678', valid: true } });
+    wrapper.find('#password').simulate('change', { target: { value: '12345678' } });
+    var errorMsg = wrapper.find('#passMismatch');
+    expect(errorMsg.length).toEqual(0);
   });
-});
+
+  it("If passwords don't match, show mismatch error", () => {
+    const wrapper = mount(<SignUpForm />);
+    wrapper.find('PasswordConfirmationInput').simulate('change', { target: { value: '12345678' } });
+    wrapper.setState({ passwordConf: { value: '12345678', valid: true } });
+    wrapper.find('#password').simulate('change', { target: { value: '12345' } });
+    var errorMsg = wrapper.find('#passMismatch'); 
+    expect(errorMsg.length).toEqual(1); 
+  });
+}); 
 
 describe('<EmailInput> component', () => {
   it('should say need email', () => {
