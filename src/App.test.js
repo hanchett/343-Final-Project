@@ -4,6 +4,8 @@ import App from './App';
 import SignUpForm, { BirthdayInput, EmailInput, RequiredInput, PasswordConfirmationInput } from './TeamSignUp.js';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
+import ReactTestUtils from 'react-addons-test-utils';
+
 
 describe('Dom Test', () => {
   it('renders without crashing', () => {
@@ -29,6 +31,28 @@ describe('Checks on Submit button', () => {
    wrapper.root.component.setChildProps({value: '12345'});
 
     expect(wrapper.find("#submitButton").props().disabled).toEqual(false);
+  });
+});
+
+//to test if the error message of missing doesn't display when user types in their information
+describe('<RequiredInput> component', () => {
+  it('no errors.missing message when field is not blank', () => {
+      const wrapper = shallow(<RequiredInput />);
+      const noMissing = wrapper.find('#noMissing');
+      const input = wrapper.find('input');
+      wrapper.find('input').simulate('change', {target:{value:'sybil'}});
+      expect(noMissing).toEqual(true);
+  });
+});
+//to test if the error message doesn't display when two passwords are the same
+describe('<PasswordConfirmationInput> component', () => {
+  it('no mismatch message when password matches comfirm password', () => {
+      const wrapper = shallow(<PasswordConfirmationInput />);
+      const input = wrapper.find('input');
+      const noMismatch = wrapper.find('#noMismatch');
+      wrapper.find('currentValue').simulate('change', {target:{value:'123456'}});
+      wrapper.find('wrapper.props.password').simulate('change', {target:{value:'123456'}});
+      expect(noMismatch).toEqual(true);
   });
 });
 
@@ -70,3 +94,4 @@ describe('<BirthdayInput> component', () => {
     expect(wrapper.find('p').length).toEqual(0);
   });
 });
+
